@@ -7,7 +7,8 @@
         <entry key="..\:/Programs/Programming/AndroidProjects/ToDo/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Programs/Programming/AndroidProjects/ToDo/app/src/main/res/layout/app_bar_main.xml" value="0.18" />
         <entry key="..\:/Programs/Programming/AndroidProjects/ToDo/app/src/main/res/layout/content_main.xml" value="0.17255434782608695" />
-        <entry key="..\:/Programs/Programming/AndroidProjects/ToDo/app/src/main/res/layout/fragment_all_tasks.xml" value="0.2" />
+        <entry key="..\:/Programs/Programming/AndroidProjects/ToDo/app/src/main/res/layout/fragment_add_task.xml" value="0.22" />
+        <entry key="..\:/Programs/Programming/AndroidProjects/ToDo/app/src/main/res/layout/fragment_all_tasks.xml" value="0.1" />
         <entry key="..\:/Programs/Programming/AndroidProjects/ToDo/app/src/main/res/layout/nav_header_main.xml" value="0.6162790697674418" />
         <entry key="..\:/Programs/Programming/AndroidProjects/ToDo/app/src/main/res/menu/main_drawer.xml" value="0.1921875" />
       </map>

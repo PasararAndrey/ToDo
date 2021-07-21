@@ -1,10 +1,11 @@
-package com.example.todo.ui.tasks
+package com.example.todo.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.todo.databinding.FragmentAllTasksBinding
 
 class AllTasksFragment : Fragment() {
@@ -20,6 +21,17 @@ class AllTasksFragment : Fragment() {
         _binding = FragmentAllTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val fab = binding.fab
+        fab.setOnClickListener {
+            val action = AllTasksFragmentDirections
+                .actionNavAllTasksToAddTaskFragment()
+            findNavController().navigate(action)
+        }
+
     }
 
     override fun onDestroy() {

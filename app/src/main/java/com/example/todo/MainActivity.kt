@@ -22,13 +22,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbarMain)
 
-        val fab = binding.appBarMain.fab
-        fab.setOnClickListener {
-            Snackbar.make(
-                this, binding.root, "TODO", Snackbar.LENGTH_SHORT
-            ).show()
-        }
-
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_main)

@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">ToDo</string>
-    <string name="nav_all_tasks_label">Задачи</string>
+    <string name="nav_all_tasks_label">Tasks</string>
     <string name="fab">fab</string>
+    <string name="add_title_hint">Title</string>
+    <string name="add_goal_hint">Enter your goal here</string>
+    <string name="add_task">Add Task</string>
 </resources>
