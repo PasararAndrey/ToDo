@@ -7,7 +7,22 @@
 
     <fragment
         android:id="@+id/nav_all_tasks"
-        android:name="com.example.todo.ui.tasks.AllTasksFragment"
+        android:name="com.example.todo.ui.fragment.tasks.TasksFragment"
         android:label="@string/nav_all_tasks_label"
-        tools:layout="@layout/fragment_all_tasks" />
+        tools:layout="@layout/fragment_all_tasks">
+        <action
+            android:id="@+id/action_nav_all_tasks_to_addTaskFragment"
+            app:destination="@id/nav_add_task" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_add_task"
+        android:name="com.example.todo.ui.fragment.addtask.AddTaskFragment"
+        android:label="@string/add_task"
+        tools:layout="@layout/fragment_add_task">
+        <action
+            android:id="@+id/action_addTaskFragment_to_nav_all_tasks"
+            app:destination="@id/nav_all_tasks"
+            app:popUpTo="@+id/nav_all_tasks"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
