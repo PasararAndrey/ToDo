@@ -1,15 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+
+
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.0-beta05")
+        classpath("com.android.tools.build:gradle:7.0.0-rc01")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5")
-
-        // NOTE: Do not place your application dependencies here; they belong
+        // NOTE: Do not place your applica  tion dependencies here; they belong
         // in the individual module build.gradle.kts files
     }
 }
