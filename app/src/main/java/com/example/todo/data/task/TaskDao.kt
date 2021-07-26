@@ -1,18 +1,16 @@
 package com.example.todo.data.task
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertTask(task: Task)
 
-    @Query("SELECT * FROM Task")
-    suspend fun getTasks(): List<Task>
+    @Query("SELECT * FROM task_table")
+    fun getAllTasks(): Flow<List<Task>>
 
     @Delete
     suspend fun deleteTask(task: Task)

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.todo.data.task.Task
 import com.example.todo.data.task.TaskDao
 
-@Database(entities = [Task::class], version = 1)
+@Database(entities = [Task::class], version = 2, exportSchema = false)
 abstract class TasksDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
 
@@ -26,8 +26,6 @@ abstract class TasksDatabase : RoomDatabase() {
                 INSTANCE = instance
                 instance
             }
-
         }
-
     }
 }

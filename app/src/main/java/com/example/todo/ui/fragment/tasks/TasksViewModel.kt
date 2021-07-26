@@ -1,13 +1,15 @@
-package com.example.todo.ui.fragment.addtask
+package com.example.todo.ui.fragment.tasks
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.todo.data.task.AppRepository
 import com.example.todo.data.task.Task
-import com.example.todo.data.task.TaskDao
 import kotlinx.coroutines.launch
 
-class TaskViewModel(private val taskDao: TaskDao) : ViewModel() {
+class TasksViewModel(
+    private val repository: AppRepository
+) : ViewModel() {
+    val allTasks : LiveData<List<Task>> = repository.allTasks.asLiveData()
+
     fun insertTask(
         title: String,
         description: String
@@ -18,7 +20,7 @@ class TaskViewModel(private val taskDao: TaskDao) : ViewModel() {
 
     private fun insertTask(task: Task) {
         viewModelScope.launch {
-            taskDao.insertTask(task)
+            repository.insertTask(task)
         }
     }
 
@@ -32,13 +34,14 @@ class TaskViewModel(private val taskDao: TaskDao) : ViewModel() {
         }
         return true
     }
+
 }
 
-class TaskViewModelFactory(private val taskDao: TaskDao) : ViewModelProvider.Factory {
+class TasksViewModelFactory(private val repository: AppRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(TaskViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return TaskViewModel(taskDao) as T
+        @Suppress("UNCHECKED_CAST")
+        if (modelClass.isAssignableFrom(TasksViewModel::class.java)) {
+            return TasksViewModel(repository = repository) as T
         }
         throw IllegalAccessException("Unknown ViewModel class")
     }
