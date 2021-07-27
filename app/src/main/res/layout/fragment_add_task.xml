@@ -21,6 +21,7 @@
             android:layout_marginTop="@dimen/add_task_et_margin_top"
             android:background="@android:color/transparent"
             android:hint="@string/add_title_hint"
+            android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="text"
             android:maxLines="1"
@@ -34,6 +35,7 @@
             android:background="@android:color/transparent"
             android:gravity="top"
             android:hint="@string/add_goal_hint"
+            android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="text" />
     </LinearLayout>

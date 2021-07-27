@@ -12,7 +12,6 @@ import com.example.todo.ToDoApplication
 import com.example.todo.databinding.FragmentAllTasksBinding
 
 class TasksFragment : Fragment() {
-
     private var _binding: FragmentAllTasksBinding? = null
     val binding get() = _binding!!
 
@@ -28,8 +27,7 @@ class TasksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAllTasksBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +40,7 @@ class TasksFragment : Fragment() {
         }
 
         val recyclerView = binding.allTasksRv
-        val adapter = TasksAdapter()
+        val adapter = TasksAdapter(viewModel)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 

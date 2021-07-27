@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-
     val activityVersion = "1.2.3"
     val appCompatVersion = "1.3.0"
     val constraintLayoutVersion = "2.0.4"
@@ -52,15 +51,12 @@ dependencies {
     val lifecycleVersion = "2.3.1"
     val materialVersion = "1.3.0"
     val roomVersion = "2.3.0"
-    // testing
     val unitVersion = "4.13.2"
     val androidxJunitVersion = "1.1.2"
     val navigation = "2.3.5"
+
     implementation("androidx.appcompat:appcompat:$appCompatVersion")
     implementation("androidx.activity:activity-ktx:$activityVersion")
-
-    // Dependencies for working with Architecture components
-    // You'll probably have to update the version numbers in build.gradle (Project)
 
     // Room components
     implementation("androidx.room:room-ktx:$roomVersion")
@@ -72,6 +68,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
 
+    // Kotlin Core
     implementation("androidx.core:core-ktx:$kotlinCore")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines")
     api(

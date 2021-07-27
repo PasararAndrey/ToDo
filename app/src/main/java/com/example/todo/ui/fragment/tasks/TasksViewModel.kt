@@ -1,14 +1,14 @@
 package com.example.todo.ui.fragment.tasks
 
 import androidx.lifecycle.*
-import com.example.todo.data.task.AppRepository
+import com.example.todo.data.AppRepository
 import com.example.todo.data.task.Task
 import kotlinx.coroutines.launch
 
 class TasksViewModel(
     private val repository: AppRepository
 ) : ViewModel() {
-    val allTasks : LiveData<List<Task>> = repository.allTasks.asLiveData()
+    val allTasks: LiveData<List<Task>> = repository.allTasks.asLiveData()
 
     fun insertTask(
         title: String,
@@ -33,6 +33,13 @@ class TasksViewModel(
             return false
         }
         return true
+    }
+
+    fun deleteTask(task: Task) {
+        viewModelScope.launch {
+            repository.deleteTask(task = task)
+
+        }
     }
 
 }
