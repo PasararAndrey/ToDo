@@ -8,13 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.data.task.Task
 import com.example.todo.databinding.TaskItemBinding
 
-class TasksAdapter : ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffCallback()) {
+class TasksAdapter(private val viewModel: TasksViewModel) :
+    ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffCallback()) {
 
     class TaskViewHolder(private val binding: TaskItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Task) {
+        fun bind(viewModel: TasksViewModel, item: Task) {
             binding.title.text = item.title
             binding.description.text = item.description
+            binding.completeCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    viewModel.deleteTask(item)
+                }
+            }
         }
 
         companion object {
@@ -32,12 +38,9 @@ class TasksAdapter : ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffCall
         override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
             return oldItem.id == newItem.id
         }
-
         override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
             return oldItem == newItem
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -45,7 +48,7 @@ class TasksAdapter : ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffCall
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        val singleTask: Task = getItem(position)
+        holder.bind(viewModel, singleTask)
     }
 }

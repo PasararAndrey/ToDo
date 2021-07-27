@@ -13,16 +13,13 @@ import com.example.todo.ui.fragment.tasks.TasksViewModel
 import com.example.todo.ui.fragment.tasks.TasksViewModelFactory
 
 class AddTaskFragment : Fragment() {
-
     private var _binding: FragmentAddTaskBinding? = null
     val binding get() = _binding!!
-
     val viewModel: TasksViewModel by viewModels {
         TasksViewModelFactory(
             (activity?.application as ToDoApplication).repository
         )
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +52,6 @@ class AddTaskFragment : Fragment() {
             binding.addTaskTitleEt.text.toString(),
             binding.addTaskGoalEt.text.toString()
         )
-
     }
 
     override fun onDestroy() {

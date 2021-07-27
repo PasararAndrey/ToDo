@@ -1,6 +1,8 @@
-package com.example.todo.data.task
+package com.example.todo.data
 
 import androidx.annotation.WorkerThread
+import com.example.todo.data.task.Task
+import com.example.todo.data.task.TaskDao
 import kotlinx.coroutines.flow.Flow
 
 
