@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     val activityVersion = "1.2.3"
     val appCompatVersion = "1.3.0"
     val constraintLayoutVersion = "2.0.4"
@@ -82,6 +83,7 @@ dependencies {
     implementation("androidx.navigation:navigation-runtime-ktx:$navigation")
     implementation("androidx.navigation:navigation-fragment-ktx:$navigation")
     implementation("androidx.navigation:navigation-ui-ktx:$navigation")
+
 
     // Testing
     testImplementation("junit:junit:$unitVersion")

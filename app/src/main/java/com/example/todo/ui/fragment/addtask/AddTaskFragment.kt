@@ -1,9 +1,11 @@
 package com.example.todo.ui.fragment.addtask
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,8 +16,8 @@ import com.example.todo.ui.fragment.tasks.TasksViewModelFactory
 
 class AddTaskFragment : Fragment() {
     private var _binding: FragmentAddTaskBinding? = null
-    val binding get() = _binding!!
-    val viewModel: TasksViewModel by viewModels {
+    private val binding get() = _binding!!
+    private val viewModel: TasksViewModel by viewModels {
         TasksViewModelFactory(
             (activity?.application as ToDoApplication).repository
         )
@@ -56,6 +58,10 @@ class AddTaskFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+
         _binding = null
     }
 }

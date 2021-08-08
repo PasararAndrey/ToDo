@@ -38,9 +38,11 @@ class TasksFragment : Fragment() {
                 .actionNavAllTasksToAddTaskFragment()
             findNavController().navigate(action)
         }
-
         val recyclerView = binding.allTasksRv
-        val adapter = TasksAdapter(viewModel)
+        val adapter = TasksAdapter(viewModel) {
+            val action = TasksFragmentDirections.actionNavAllTasksToTaskDetailFragment(it.id)
+            this.findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.data.task.Task
 import com.example.todo.databinding.TaskItemBinding
 
-class TasksAdapter(private val viewModel: TasksViewModel) :
+class TasksAdapter(private val viewModel: TasksViewModel, private val onItemClicked: (Task) ->  Unit) :
     ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffCallback()) {
 
     class TaskViewHolder(private val binding: TaskItemBinding) :
@@ -48,7 +48,10 @@ class TasksAdapter(private val viewModel: TasksViewModel) :
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val singleTask: Task = getItem(position)
-        holder.bind(viewModel, singleTask)
+        val currentTask: Task = getItem(position)
+        holder.itemView.setOnClickListener {
+            onItemClicked(currentTask)
+        }
+        holder.bind(viewModel, currentTask)
     }
 }

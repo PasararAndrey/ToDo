@@ -42,6 +42,11 @@ class TasksViewModel(
         }
     }
 
+    fun getTask(id: Int): LiveData<Task> {
+        return repository.getTask(id).asLiveData()
+    }
+
+
 }
 
 class TasksViewModelFactory(private val repository: AppRepository) : ViewModelProvider.Factory {
