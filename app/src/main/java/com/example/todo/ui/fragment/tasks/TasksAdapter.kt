@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.data.task.Task
 import com.example.todo.databinding.TaskItemBinding
 
-class TasksAdapter(private val viewModel: TasksViewModel, private val onItemClicked: (Task) ->  Unit) :
+class TasksAdapter(
+    private val viewModel: TasksViewModel,
+    private val onItemClicked: (Task) -> Unit
+) :
     ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffCallback()) {
 
     class TaskViewHolder(private val binding: TaskItemBinding) :
@@ -38,6 +41,7 @@ class TasksAdapter(private val viewModel: TasksViewModel, private val onItemClic
         override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
             return oldItem.id == newItem.id
         }
+
         override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
             return oldItem == newItem
         }

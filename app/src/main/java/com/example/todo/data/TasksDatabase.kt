@@ -10,7 +10,6 @@ import com.example.todo.data.task.TaskDao
 @Database(entities = [Task::class], version = 2, exportSchema = false)
 abstract class TasksDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
-
     companion object {
         @Volatile
         private var INSTANCE: TasksDatabase? = null

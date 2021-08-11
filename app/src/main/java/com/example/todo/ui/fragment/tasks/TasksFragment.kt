@@ -13,7 +13,7 @@ import com.example.todo.databinding.FragmentAllTasksBinding
 
 class TasksFragment : Fragment() {
     private var _binding: FragmentAllTasksBinding? = null
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     private val viewModel: TasksViewModel by viewModels {
         TasksViewModelFactory(
@@ -35,18 +35,19 @@ class TasksFragment : Fragment() {
         val fab = binding.fab
         fab.setOnClickListener {
             val action = TasksFragmentDirections
-                .actionNavAllTasksToAddTaskFragment()
+                .actionNavAllTasksToAddEditTaskFragment()
             findNavController().navigate(action)
         }
         val recyclerView = binding.allTasksRv
         val adapter = TasksAdapter(viewModel) {
-            val action = TasksFragmentDirections.actionNavAllTasksToTaskDetailFragment(it.id)
+            val action =
+                TasksFragmentDirections.actionNavAllTasksToAddEditTaskFragment(taskId = it.id)
             this.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.allTasks.observe(viewLifecycleOwner)
+        viewModel.tasks.observe(viewLifecycleOwner)
         { tasks -> tasks?.let { adapter.submitList(it) } }
     }
 
