@@ -7,8 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 
 class AppRepository(private val taskDao: TaskDao) {
-    val allTasks: Flow<List<Task>> = taskDao.getAllTasks()
-
     @WorkerThread
     suspend fun insertTask(task: Task) {
         taskDao.insertTask(task)
@@ -18,4 +16,12 @@ class AppRepository(private val taskDao: TaskDao) {
     suspend fun deleteTask(task: Task) {
         taskDao.deleteTask(task)
     }
+
+    @WorkerThread
+    suspend fun updateTask(task: Task) {
+        return taskDao.updateTask(task)
+    }
+
+    fun allTasks(): Flow<List<Task>> = taskDao.getAllTasks()
+    fun getTask(id: Int): Flow<Task> = taskDao.getTask(id)
 }

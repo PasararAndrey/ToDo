@@ -7,4 +7,5 @@
     <dimen name="task_item_padding">16dp</dimen>
     <dimen name="task_item_text_margin">4dp</dimen>
     <dimen name="text_layout_margin">8dp</dimen>
+    <dimen name="task_detail_margin">16dp</dimen>
 </resources>

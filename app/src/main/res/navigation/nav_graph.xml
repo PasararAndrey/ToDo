@@ -4,25 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
     app:startDestination="@+id/nav_all_tasks">
-
     <fragment
         android:id="@+id/nav_all_tasks"
         android:name="com.example.todo.ui.fragment.tasks.TasksFragment"
         android:label="@string/nav_all_tasks_label"
         tools:layout="@layout/fragment_all_tasks">
+
         <action
-            android:id="@+id/action_nav_all_tasks_to_addTaskFragment"
-            app:destination="@id/nav_add_task" />
+            android:id="@+id/action_nav_all_tasks_to_addEditTaskFragment"
+            app:destination="@id/addEditTaskFragment" />
     </fragment>
     <fragment
-        android:id="@+id/nav_add_task"
-        android:name="com.example.todo.ui.fragment.addtask.AddTaskFragment"
-        android:label="@string/add_task"
-        tools:layout="@layout/fragment_add_task">
+        android:id="@+id/addEditTaskFragment"
+        android:name="com.example.todo.ui.fragment.addtask.AddEditTaskFragment"
+        android:label="fragment_add_edit_task"
+        tools:layout="@layout/fragment_add_edit_task">
+        <argument
+            android:name="task_id"
+            android:defaultValue="-1"
+            app:argType="integer" />
         <action
-            android:id="@+id/action_addTaskFragment_to_nav_all_tasks"
-            app:destination="@id/nav_all_tasks"
-            app:popUpTo="@+id/nav_all_tasks"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_addEditTaskFragment_to_nav_all_tasks"
+            app:destination="@id/nav_all_tasks" />
     </fragment>
+
 </navigation>

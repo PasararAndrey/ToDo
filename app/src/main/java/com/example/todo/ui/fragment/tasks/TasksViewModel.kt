@@ -8,7 +8,9 @@ import kotlinx.coroutines.launch
 class TasksViewModel(
     private val repository: AppRepository
 ) : ViewModel() {
-    val allTasks: LiveData<List<Task>> = repository.allTasks.asLiveData()
+
+    private var _tasks = repository.allTasks().asLiveData()
+    val tasks get() = _tasks
 
     fun insertTask(
         title: String,
@@ -38,10 +40,38 @@ class TasksViewModel(
     fun deleteTask(task: Task) {
         viewModelScope.launch {
             repository.deleteTask(task = task)
-
         }
     }
 
+    fun getTask(id: Int): LiveData<Task> {
+        return repository.getTask(id).asLiveData()
+    }
+
+    fun updateTask(
+        taskId: Int,
+        taskTitle: String,
+        taskDesc: String
+    ) {
+        val updatedTask = getUpdatedTaskFromInput(taskId, taskTitle, taskDesc)
+        updateTask(updatedTask)
+    }
+
+    private fun updateTask(updatedTask: Task) {
+        viewModelScope.launch {
+            repository.updateTask(updatedTask)
+        }
+    }
+    private fun getUpdatedTaskFromInput(
+        taskId: Int,
+        taskTitle: String,
+        taskDesc: String
+    ): Task {
+        return Task(
+            id = taskId,
+            title = taskTitle,
+            description = taskDesc
+        )
+    }
 }
 
 class TasksViewModelFactory(private val repository: AppRepository) : ViewModelProvider.Factory {
