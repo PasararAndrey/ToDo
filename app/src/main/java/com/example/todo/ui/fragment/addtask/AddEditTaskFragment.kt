@@ -7,23 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.todo.ToDoApplication
 import com.example.todo.data.task.Task
 import com.example.todo.databinding.FragmentAddEditTaskBinding
 import com.example.todo.ui.fragment.tasks.TasksViewModel
-import com.example.todo.ui.fragment.tasks.TasksViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.FragmentScoped
+import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class AddEditTaskFragment : Fragment() {
     private var _binding: FragmentAddEditTaskBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: TasksViewModel by viewModels {
-        TasksViewModelFactory(
-            (activity?.application as ToDoApplication).repository
-        )
-    }
+
+    @Inject
+    lateinit var viewModel: TasksViewModel
 
     private val navArgs: AddEditTaskFragmentArgs by navArgs()
 

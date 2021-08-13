@@ -1,12 +1,20 @@
 package com.example.todo.ui.fragment.tasks
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.todo.data.AppRepository
 import com.example.todo.data.task.Task
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TasksViewModel(
-    private val repository: AppRepository
+
+class TasksViewModel
+@Inject
+constructor(
+    private val repository: AppRepository,
 ) : ViewModel() {
 
     private var _tasks = repository.allTasks().asLiveData()
@@ -14,7 +22,7 @@ class TasksViewModel(
 
     fun insertTask(
         title: String,
-        description: String
+        description: String,
     ) {
         val insertedTask = getInsertedTaskFromInput(title, description)
         insertTask(insertedTask)
@@ -50,7 +58,7 @@ class TasksViewModel(
     fun updateTask(
         taskId: Int,
         taskTitle: String,
-        taskDesc: String
+        taskDesc: String,
     ) {
         val updatedTask = getUpdatedTaskFromInput(taskId, taskTitle, taskDesc)
         updateTask(updatedTask)
@@ -61,10 +69,11 @@ class TasksViewModel(
             repository.updateTask(updatedTask)
         }
     }
+
     private fun getUpdatedTaskFromInput(
         taskId: Int,
         taskTitle: String,
-        taskDesc: String
+        taskDesc: String,
     ): Task {
         return Task(
             id = taskId,
@@ -72,15 +81,4 @@ class TasksViewModel(
             description = taskDesc
         )
     }
-}
-
-class TasksViewModelFactory(private val repository: AppRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        @Suppress("UNCHECKED_CAST")
-        if (modelClass.isAssignableFrom(TasksViewModel::class.java)) {
-            return TasksViewModel(repository = repository) as T
-        }
-        throw IllegalAccessException("Unknown ViewModel class")
-    }
-
 }

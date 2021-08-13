@@ -10,21 +10,4 @@ import com.example.todo.data.task.TaskDao
 @Database(entities = [Task::class], version = 2, exportSchema = false)
 abstract class TasksDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
-    companion object {
-        @Volatile
-        private var INSTANCE: TasksDatabase? = null
-        private const val DB_NAME = "tasks.db"
-
-        fun getDatabase(context: Context): TasksDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context,
-                    TasksDatabase::class.java,
-                    DB_NAME
-                ).build()
-                INSTANCE = instance
-                instance
-            }
-        }
-    }
 }

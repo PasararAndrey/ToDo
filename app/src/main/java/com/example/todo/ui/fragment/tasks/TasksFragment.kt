@@ -10,16 +10,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.ToDoApplication
 import com.example.todo.databinding.FragmentAllTasksBinding
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.FragmentScoped
+import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class TasksFragment : Fragment() {
     private var _binding: FragmentAllTasksBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: TasksViewModel by viewModels {
-        TasksViewModelFactory(
-            (activity?.application as ToDoApplication).repository
-        )
-    }
+    @Inject
+    lateinit var viewModel: TasksViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -25,7 +25,9 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_addEditTaskFragment_to_nav_all_tasks"
-            app:destination="@id/nav_all_tasks" />
+            app:destination="@id/nav_all_tasks"
+            app:popUpTo="@id/nav_all_tasks"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 </navigation>
