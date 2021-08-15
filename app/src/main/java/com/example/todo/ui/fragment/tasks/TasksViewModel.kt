@@ -6,7 +6,9 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todo.data.AppRepository
 import com.example.todo.data.task.Task
-import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,8 +18,11 @@ class TasksViewModel
 constructor(
     private val repository: AppRepository,
 ) : ViewModel() {
-
-    private var _tasks = repository.allTasks().asLiveData()
+    val searchQuery: MutableStateFlow<String> = MutableStateFlow("")
+    
+    private var _tasks = searchQuery.flatMapLatest {
+        repository.allTasks(it)
+    }.asLiveData()
     val tasks get() = _tasks
 
     fun insertTask(

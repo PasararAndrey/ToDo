@@ -16,13 +16,16 @@ class TasksAdapter(
 
     class TaskViewHolder(private val binding: TaskItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(viewModel: TasksViewModel, item: Task) {
-            binding.title.text = item.title
-            binding.description.text = item.description
-            binding.completeCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    viewModel.deleteTask(item)
+        fun bind(viewModel: TasksViewModel, task: Task) {
+            binding.apply {
+                title.text = task.title
+                description.text = task.description
+                completeCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) {
+                        viewModel.deleteTask(task)
+                    }
                 }
+
             }
         }
 

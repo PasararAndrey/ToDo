@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
-    @Query("SELECT * FROM task_table")
-    fun getAllTasks(): Flow<List<Task>>
+    @Query("SELECT * FROM task_table WHERE title LIKE '%' || :searchQuery || '%'")
+    fun getTasks(searchQuery: String): Flow<List<Task>>
 
     @Query("SELECT * FROM task_table WHERE id = :id")
     fun getTask(id: Int): Flow<Task>

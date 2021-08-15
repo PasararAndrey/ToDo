@@ -15,14 +15,19 @@ class AppRepositoryImpl @Inject constructor(private val taskDao: TaskDao) :
     override suspend fun insertTask(task: Task) {
         taskDao.insertTask(task)
     }
+
     @WorkerThread
     override suspend fun deleteTask(task: Task) {
         taskDao.deleteTask(task)
     }
+
     @WorkerThread
     override suspend fun updateTask(task: Task) {
         return taskDao.updateTask(task)
     }
-    override fun allTasks(): Flow<List<Task>> = taskDao.getAllTasks()
+
+    override fun allTasks(searchQuery: String): Flow<List<Task>> =
+        taskDao.getTasks(searchQuery = searchQuery)
+
     override fun getTask(id: Int): Flow<Task> = taskDao.getTask(id)
 }

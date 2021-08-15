@@ -8,5 +8,5 @@ interface AppRepository {
     suspend fun deleteTask(task: Task)
     suspend fun updateTask(task: Task)
     fun getTask(id: Int): Flow<Task>
-    fun allTasks(): Flow<List<Task>>
+    fun allTasks(searchQuery: String): Flow<List<Task>>
 }

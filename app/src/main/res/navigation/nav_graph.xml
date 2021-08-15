@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@+id/nav_all_tasks">
+    app:startDestination="@+id/tasksFragment">
     <fragment
-        android:id="@+id/nav_all_tasks"
+        android:id="@+id/tasksFragment"
         android:name="com.example.todo.ui.fragment.tasks.TasksFragment"
         android:label="@string/nav_all_tasks_label"
-        tools:layout="@layout/fragment_all_tasks">
+        tools:layout="@layout/fragment_tasks">
 
         <action
             android:id="@+id/action_nav_all_tasks_to_addEditTaskFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/addEditTaskFragment"
         android:name="com.example.todo.ui.fragment.addtask.AddEditTaskFragment"
-        android:label="fragment_add_edit_task"
+        android:label=""
         tools:layout="@layout/fragment_add_edit_task">
         <argument
             android:name="task_id"
@@ -25,8 +25,8 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_addEditTaskFragment_to_nav_all_tasks"
-            app:destination="@id/nav_all_tasks"
-            app:popUpTo="@id/nav_all_tasks"
+            app:destination="@id/tasksFragment"
+            app:popUpTo="@id/tasksFragment"
             app:popUpToInclusive="true"/>
     </fragment>
 
