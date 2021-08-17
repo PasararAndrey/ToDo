@@ -10,7 +10,6 @@ import com.example.todo.R
 import com.example.todo.databinding.FragmentTasksBinding
 import com.example.todo.util.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @AndroidEntryPoint

@@ -1,5 +1,6 @@
 package com.example.todo.ui.fragment.addtask
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +14,8 @@ import com.example.todo.data.task.Task
 import com.example.todo.databinding.FragmentAddEditTaskBinding
 import com.example.todo.ui.fragment.tasks.TasksViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.FragmentScoped
+import java.text.DateFormat
+import java.util.*
 import javax.inject.Inject
 
 
@@ -44,16 +46,40 @@ class AddEditTaskFragment : Fragment() {
             }
         } else {
             binding.fab.setOnClickListener {
-                addNewItem()
+                addNewTask()
             }
+        }
+        initDatePickerListener()
+    }
+
+    private fun initDatePickerListener() {
+        val calendar = Calendar.getInstance()
+        val myYear = calendar.get(Calendar.YEAR)
+        val myMonth = calendar.get(Calendar.MONTH)
+        val myDay = calendar.get(Calendar.DAY_OF_MONTH)
+        binding.addTaskPickDate.setOnClickListener {
+            DatePickerDialog(
+                requireContext(),
+                { _, year, month, dayOfMonth ->
+                    calendar.set(year, month, dayOfMonth)
+                    binding.addTaskPickDate.setText(
+                        DateFormat.getDateInstance().format(calendar.time)
+                    )
+                },
+                myYear,
+                myMonth,
+                myDay
+            ).show()
         }
     }
 
-    private fun addNewItem() {
+    private fun addNewTask() {
         if (isEntryValid()) {
+            val date = checkCorrectDate()
             viewModel.insertTask(
                 binding.addTaskTitleEt.text.toString(),
-                binding.addTaskDescEt.text.toString()
+                binding.addTaskImportantCheckbox.isChecked,
+                date
             )
             val action = AddEditTaskFragmentDirections.actionAddEditTaskFragmentToNavAllTasks()
             findNavController().navigate(action)
@@ -62,21 +88,43 @@ class AddEditTaskFragment : Fragment() {
 
     private fun bind(task: Task) {
         binding.apply {
+            val bindingDate = binding.addTaskPickDate.text.toString()
+            val dateString = if (task.date == null) {
+                ""
+            } else {
+                DateFormat.getDateInstance().format(task.date).toString()
+            }
             addTaskTitleEt.setText(task.title)
-            addTaskDescEt.setText(task.description)
+            addTaskImportantCheckbox.isChecked = task.important
+            addTaskPickDate.setText(
+                dateString
+            )
             fab.setOnClickListener { updateTask() }
         }
     }
 
+
     private fun updateTask() {
         if (isEntryValid()) {
+            val date = checkCorrectDate()
             viewModel.updateTask(
                 navArgs.taskId,
                 binding.addTaskTitleEt.text.toString(),
-                binding.addTaskDescEt.text.toString()
+                binding.addTaskImportantCheckbox.isChecked,
+                date
             )
             val action = AddEditTaskFragmentDirections.actionAddEditTaskFragmentToNavAllTasks()
             findNavController().navigate(action)
+        }
+    }
+
+    private fun checkCorrectDate(): Date? {
+        val bindingDate = binding.addTaskPickDate.text.toString()
+        return if (bindingDate.isEmpty()) {
+            null
+        } else {
+            DateFormat.getDateInstance().parse(bindingDate)
+
         }
     }
 
@@ -84,7 +132,6 @@ class AddEditTaskFragment : Fragment() {
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
             binding.addTaskTitleEt.text.toString(),
-            binding.addTaskDescEt.text.toString()
         )
     }
 

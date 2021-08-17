@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.data.task.Task
 import com.example.todo.databinding.TaskItemBinding
+import java.text.DateFormat
 
 class TasksAdapter(
     private val viewModel: TasksViewModel,
@@ -19,7 +20,9 @@ class TasksAdapter(
         fun bind(viewModel: TasksViewModel, task: Task) {
             binding.apply {
                 title.text = task.title
-                description.text = task.description
+                if (task.date != null) {
+                    description.text = DateFormat.getDateInstance().format(task.date).toString()
+                }
                 completeCheckbox.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
                         viewModel.deleteTask(task)
