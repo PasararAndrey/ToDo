@@ -73,10 +73,18 @@ class TasksFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_search -> {
+                true
+            }
 
+            R.id.action_sort ->{
+                showPopup()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showPopup() {
+        TODO("Not yet implemented")
     }
 }
