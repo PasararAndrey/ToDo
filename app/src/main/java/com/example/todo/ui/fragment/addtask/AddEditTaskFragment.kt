@@ -79,7 +79,8 @@ class AddEditTaskFragment : Fragment() {
             viewModel.insertTask(
                 binding.addTaskTitleEt.text.toString(),
                 binding.addTaskImportantCheckbox.isChecked,
-                date
+                date,
+                Date(System.currentTimeMillis())
             )
             val action = AddEditTaskFragmentDirections.actionAddEditTaskFragmentToNavAllTasks()
             findNavController().navigate(action)
@@ -88,11 +89,10 @@ class AddEditTaskFragment : Fragment() {
 
     private fun bind(task: Task) {
         binding.apply {
-            val bindingDate = binding.addTaskPickDate.text.toString()
-            val dateString = if (task.date == null) {
+            val dateString = if (task.termDate == null) {
                 ""
             } else {
-                DateFormat.getDateInstance().format(task.date).toString()
+                DateFormat.getDateInstance().format(task.termDate).toString()
             }
             addTaskTitleEt.setText(task.title)
             addTaskImportantCheckbox.isChecked = task.important
@@ -111,7 +111,8 @@ class AddEditTaskFragment : Fragment() {
                 navArgs.taskId,
                 binding.addTaskTitleEt.text.toString(),
                 binding.addTaskImportantCheckbox.isChecked,
-                date
+                date,
+                Date(System.currentTimeMillis())
             )
             val action = AddEditTaskFragmentDirections.actionAddEditTaskFragmentToNavAllTasks()
             findNavController().navigate(action)
@@ -140,7 +141,6 @@ class AddEditTaskFragment : Fragment() {
         val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as
                 InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
-
         _binding = null
     }
 }

@@ -26,9 +26,12 @@ constructor(
 
     fun insertTask(
         title: String,
-        important: Boolean, date: Date?,
+        important: Boolean,
+        termDate: Date?,
+        initDate: Date
     ) {
-        val insertedTask = getInsertedTaskFromInput(title, important, date)
+
+        val insertedTask = getInsertedTaskFromInput(title, important, termDate, initDate)
         insertTask(insertedTask)
     }
 
@@ -41,9 +44,10 @@ constructor(
     private fun getInsertedTaskFromInput(
         title: String,
         important: Boolean,
-        date: Date?
+        date: Date?,
+        initDate: Date
     ): Task {
-        return Task(title = title, important = important, date = date)
+        return Task(title = title, important = important, termDate = date, initDate = initDate)
     }
 
     fun isEntryValid(title: String): Boolean {
@@ -65,9 +69,9 @@ constructor(
 
     fun updateTask(
         id: Int,
-        title: String, important: Boolean, date: Date?
+        title: String, important: Boolean, termDate: Date?, initDate: Date
     ) {
-        val updatedTask = getUpdatedTaskFromInput(id, title, important, date)
+        val updatedTask = getUpdatedTaskFromInput(id, title, important, termDate, initDate)
         updateTask(updatedTask)
     }
 
@@ -79,10 +83,10 @@ constructor(
 
     private fun getUpdatedTaskFromInput(
         id: Int,
-        title: String, important: Boolean, date: Date?
+        title: String, important: Boolean, termDate: Date?, initDate: Date
     ): Task {
         return Task(
-            id, title, important, date
+            id, title, important, termDate, initDate
         )
     }
 }

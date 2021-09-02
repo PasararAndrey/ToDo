@@ -14,5 +14,7 @@ data class Task(
     @ColumnInfo(name = "important")
     val important: Boolean = false,
     @ColumnInfo(name = "date")
-    val date: Date?
+    val termDate: Date?,
+    @ColumnInfo
+    val initDate: Date
 )

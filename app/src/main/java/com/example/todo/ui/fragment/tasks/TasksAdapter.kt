@@ -20,8 +20,8 @@ class TasksAdapter(
         fun bind(viewModel: TasksViewModel, task: Task) {
             binding.apply {
                 title.text = task.title
-                if (task.date != null) {
-                    description.text = DateFormat.getDateInstance().format(task.date).toString()
+                if (task.termDate != null) {
+                    description.text = DateFormat.getDateInstance().format(task.termDate).toString()
                 }
                 completeCheckbox.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
