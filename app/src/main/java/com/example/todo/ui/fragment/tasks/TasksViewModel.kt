@@ -7,11 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.todo.data.AppRepository
 import com.example.todo.data.task.Task
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
+
+enum class SortOrder {
+    BY_NAME, BY_CREATION_DATE, BY_DEADLINE_DATE
+}
 
 class TasksViewModel
 @Inject
@@ -19,8 +24,17 @@ constructor(
     private val repository: AppRepository,
 ) : ViewModel() {
     val searchQuery: MutableStateFlow<String> = MutableStateFlow("")
-    private var _tasks = searchQuery.flatMapLatest {
-        repository.allTasks(it)
+    val sortOrder = MutableStateFlow(SortOrder.BY_CREATION_DATE)
+
+    val anchorImportant = MutableStateFlow(false)
+    private var _tasks = combine(
+            searchQuery,
+            sortOrder,
+            anchorImportant
+        ){ searchQuery,sortOrder, anchorImportant ->
+            Triple(searchQuery,sortOrder,anchorImportant)
+        }.flatMapLatest { (searchQuery,sortOrder, anchorImportant)->
+                repository.allTasks(searchQuery, sortOrder, anchorImportant)
     }.asLiveData()
     val tasks get() = _tasks
 

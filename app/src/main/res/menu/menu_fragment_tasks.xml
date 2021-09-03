@@ -11,8 +11,26 @@
     <item
         android:id="@+id/action_sort"
         android:title="@string/action_sort"
-        app:showAsAction="never"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/sort_by_name"
+                android:title="By name"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_creation"
+                android:title="By creation"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_deadline"
+                android:title="By deadline"
+                app:showAsAction="never" />
+        </menu>
 
-        />
-
+    </item>
+    <item
+        android:id="@+id/action_important"
+        android:checkable="true"
+        android:title="Anchor important"
+        app:showAsAction="never" />
 </menu>

@@ -13,7 +13,7 @@ data class Task(
     val title: String,
     @ColumnInfo(name = "important")
     val important: Boolean = false,
-    @ColumnInfo(name = "date")
+    @ColumnInfo(name = "term_date")
     val termDate: Date?,
     @ColumnInfo
     val initDate: Date

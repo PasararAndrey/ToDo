@@ -3,6 +3,7 @@ package com.example.todo.data
 import androidx.annotation.WorkerThread
 import com.example.todo.data.task.Task
 import com.example.todo.data.task.TaskDao
+import com.example.todo.ui.fragment.tasks.SortOrder
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,8 +27,8 @@ class AppRepositoryImpl @Inject constructor(private val taskDao: TaskDao) :
         return taskDao.updateTask(task)
     }
 
-    override fun allTasks(searchQuery: String): Flow<List<Task>> =
-        taskDao.getTasks(searchQuery = searchQuery)
+    override fun allTasks(searchQuery: String, sortOrder: SortOrder, anchorImportant: Boolean): Flow<List<Task>> =
+        taskDao.getTasks(searchQuery, sortOrder, anchorImportant)
 
     override fun getTask(id: Int): Flow<Task> = taskDao.getTask(id)
 }

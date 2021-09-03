@@ -76,15 +76,30 @@ class TasksFragment : Fragment() {
                 true
             }
 
-            R.id.action_sort ->{
-                showPopup()
+            R.id.action_sort -> {
                 true
             }
+
+            R.id.sort_by_name -> {
+                viewModel.sortOrder.value = SortOrder.BY_NAME
+                true
+            }
+            R.id.sort_by_creation -> {
+                viewModel.sortOrder.value = SortOrder.BY_CREATION_DATE
+                true
+            }
+            R.id.sort_by_deadline -> {
+                viewModel.sortOrder.value = SortOrder.BY_DEADLINE_DATE
+                true
+            }
+
+            R.id.action_important -> {
+                item.isChecked = !item.isChecked
+                viewModel.anchorImportant.value = item.isChecked
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showPopup() {
-        TODO("Not yet implemented")
     }
 }
