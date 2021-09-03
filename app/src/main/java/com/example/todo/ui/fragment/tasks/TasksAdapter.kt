@@ -2,6 +2,7 @@ package com.example.todo.ui.fragment.tasks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ class TasksAdapter(
                         viewModel.deleteTask(task)
                     }
                 }
+                labelImportant.isVisible = task.important
 
             }
         }

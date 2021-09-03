@@ -12,10 +12,12 @@
         android:layout_gravity="center_vertical" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/text_layout_margin"
-        android:orientation="vertical">
+        android:layout_marginEnd="@dimen/text_layout_margin"
+        android:orientation="vertical"
+        >
 
         <TextView
             android:id="@+id/title"
@@ -34,4 +36,11 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/label_important"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="isImportantImage"
+        android:src="@drawable/task_important" />
 </LinearLayout>
