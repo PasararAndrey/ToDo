@@ -2,7 +2,11 @@
     <string name="app_name">ToDo</string>
     <string name="nav_all_tasks_label">Tasks</string>
     <string name="fab">fab</string>
-    <string name="add_title_hint">Title</string>
-    <string name="add_goal_hint">Enter your goal here</string>
+    <string name="add_title_hint">Task</string>
+    <string name="add_goal_hint">Add description to the task</string>
     <string name="add_task">Add Task</string>
+    <string name="action_search">Search</string>
+    <string name="add_task_pick_date_hint">Pick the date</string>
+    <string name="picked_date">%d-%d-%d</string>
+    <string name="action_sort">Sort</string>
 </resources>

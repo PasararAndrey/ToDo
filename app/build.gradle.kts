@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-kapt")
+    id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
 }
 
@@ -14,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.todo"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 30
         versionCode = 1
         versionName = "1.0"
@@ -57,7 +58,7 @@ dependencies {
     val androidxJunitVersion = "1.1.2"
     val navigation = "2.3.5"
     val hiltVersion = "2.38.1"
-
+    val cardViewVersion = "1.0.0"
     implementation("androidx.appcompat:appcompat:$appCompatVersion")
     implementation("androidx.activity:activity-ktx:$activityVersion")
 
@@ -80,7 +81,7 @@ dependencies {
     // UI
     implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
     implementation("com.google.android.material:material:$materialVersion")
-
+    implementation("androidx.cardview:cardview:$cardViewVersion")
     //Navigation
     implementation("androidx.navigation:navigation-runtime-ktx:$navigation")
     implementation("androidx.navigation:navigation-fragment-ktx:$navigation")

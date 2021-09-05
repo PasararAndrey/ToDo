@@ -6,25 +6,46 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todo.data.AppRepository
 import com.example.todo.data.task.Task
-import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
+
+enum class SortOrder {
+    BY_NAME, BY_CREATION_DATE, BY_DEADLINE_DATE
+}
 
 class TasksViewModel
 @Inject
 constructor(
     private val repository: AppRepository,
 ) : ViewModel() {
+    val searchQuery: MutableStateFlow<String> = MutableStateFlow("")
+    val sortOrder = MutableStateFlow(SortOrder.BY_CREATION_DATE)
 
-    private var _tasks = repository.allTasks().asLiveData()
+    val anchorImportant = MutableStateFlow(false)
+    private var _tasks = combine(
+            searchQuery,
+            sortOrder,
+            anchorImportant
+        ){ searchQuery,sortOrder, anchorImportant ->
+            Triple(searchQuery,sortOrder,anchorImportant)
+        }.flatMapLatest { (searchQuery,sortOrder, anchorImportant)->
+                repository.allTasks(searchQuery, sortOrder, anchorImportant)
+    }.asLiveData()
     val tasks get() = _tasks
 
     fun insertTask(
         title: String,
-        description: String,
+        important: Boolean,
+        termDate: Date?,
+        initDate: Date
     ) {
-        val insertedTask = getInsertedTaskFromInput(title, description)
+
+        val insertedTask = getInsertedTaskFromInput(title, important, termDate, initDate)
         insertTask(insertedTask)
     }
 
@@ -34,12 +55,17 @@ constructor(
         }
     }
 
-    private fun getInsertedTaskFromInput(title: String, description: String): Task {
-        return Task(title = title, description = description)
+    private fun getInsertedTaskFromInput(
+        title: String,
+        important: Boolean,
+        date: Date?,
+        initDate: Date
+    ): Task {
+        return Task(title = title, important = important, termDate = date, initDate = initDate)
     }
 
-    fun isEntryValid(title: String, description: String): Boolean {
-        if (title.isBlank() || description.isBlank()) {
+    fun isEntryValid(title: String): Boolean {
+        if (title.isBlank()) {
             return false
         }
         return true
@@ -56,11 +82,10 @@ constructor(
     }
 
     fun updateTask(
-        taskId: Int,
-        taskTitle: String,
-        taskDesc: String,
+        id: Int,
+        title: String, important: Boolean, termDate: Date?, initDate: Date
     ) {
-        val updatedTask = getUpdatedTaskFromInput(taskId, taskTitle, taskDesc)
+        val updatedTask = getUpdatedTaskFromInput(id, title, important, termDate, initDate)
         updateTask(updatedTask)
     }
 
@@ -71,14 +96,11 @@ constructor(
     }
 
     private fun getUpdatedTaskFromInput(
-        taskId: Int,
-        taskTitle: String,
-        taskDesc: String,
+        id: Int,
+        title: String, important: Boolean, termDate: Date?, initDate: Date
     ): Task {
         return Task(
-            id = taskId,
-            title = taskTitle,
-            description = taskDesc
+            id, title, important, termDate, initDate
         )
     }
 }

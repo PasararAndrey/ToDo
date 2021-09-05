@@ -2,11 +2,13 @@ package com.example.todo.ui.fragment.tasks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.data.task.Task
 import com.example.todo.databinding.TaskItemBinding
+import java.text.DateFormat
 
 class TasksAdapter(
     private val viewModel: TasksViewModel,
@@ -16,13 +18,19 @@ class TasksAdapter(
 
     class TaskViewHolder(private val binding: TaskItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(viewModel: TasksViewModel, item: Task) {
-            binding.title.text = item.title
-            binding.description.text = item.description
-            binding.completeCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    viewModel.deleteTask(item)
+        fun bind(viewModel: TasksViewModel, task: Task) {
+            binding.apply {
+                title.text = task.title
+                if (task.termDate != null) {
+                    termDate.text = DateFormat.getDateInstance().format(task.termDate).toString()
                 }
+                completeCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) {
+                        viewModel.deleteTask(task)
+                    }
+                }
+                labelImportant.isVisible = task.important
+
             }
         }
 
