@@ -15,11 +15,19 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/add_task_et_margin_top"
-            android:hint="@string/add_title_hint">
+            android:layout_marginTop="@dimen/add_task_input_layout_margin"
+            android:layout_marginStart="@dimen/add_task_input_layout_margin"
+            android:layout_marginEnd="@dimen/add_task_input_layout_margin"
+            android:hint="@string/add_title_hint"
+            app:helperText="Required*"
+            app:helperTextTextColor="@color/red"
+            app:counterEnabled="true"
+            app:counterMaxLength="25"
+            app:endIconMode="clear_text"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/add_task_title_et"
@@ -29,14 +37,17 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                android:maxLength="25"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/add_task_et_margin_top"
+            android:layout_marginTop="@dimen/add_task_input_layout_margin"
+            android:layout_marginStart="@dimen/add_task_input_layout_margin"
+            android:layout_marginEnd="@dimen/add_task_input_layout_margin"
             android:hint="@string/add_task_pick_date_hint">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -54,7 +65,9 @@
             android:id="@+id/add_task_important_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/add_task_et_margin_top"
+            android:layout_marginTop="@dimen/add_task_input_layout_margin"
+            android:layout_marginStart="@dimen/add_task_input_layout_margin"
+            android:layout_marginEnd="@dimen/add_task_input_layout_margin"
             android:text="Important task" />
 
     </LinearLayout>

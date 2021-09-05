@@ -2,7 +2,9 @@ package com.example.todo.ui.fragment.tasks
 
 import android.os.Bundle
 import android.view.*
+import android.widget.EditText
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -65,6 +67,11 @@ class TasksFragment : Fragment() {
         inflater.inflate(R.menu.menu_fragment_tasks, menu)
         val searchItem: MenuItem = menu.findItem(R.id.action_search)
         val searchView: SearchView = searchItem.actionView as SearchView
+        val editText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        editText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        editText.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        
+
         searchView.onQueryTextChanged { newText ->
             viewModel.searchQuery.value = newText
         }

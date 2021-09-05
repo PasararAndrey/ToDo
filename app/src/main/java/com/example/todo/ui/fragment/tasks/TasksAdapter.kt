@@ -22,7 +22,7 @@ class TasksAdapter(
             binding.apply {
                 title.text = task.title
                 if (task.termDate != null) {
-                    description.text = DateFormat.getDateInstance().format(task.termDate).toString()
+                    termDate.text = DateFormat.getDateInstance().format(task.termDate).toString()
                 }
                 completeCheckbox.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {

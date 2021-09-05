@@ -58,7 +58,7 @@ class AddEditTaskFragment : Fragment() {
         val myMonth = calendar.get(Calendar.MONTH)
         val myDay = calendar.get(Calendar.DAY_OF_MONTH)
         binding.addTaskPickDate.setOnClickListener {
-            DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 { _, year, month, dayOfMonth ->
                     calendar.set(year, month, dayOfMonth)
@@ -69,7 +69,10 @@ class AddEditTaskFragment : Fragment() {
                 myYear,
                 myMonth,
                 myDay
-            ).show()
+            )
+
+            datePickerDialog.datePicker.minDate = System.currentTimeMillis()
+            datePickerDialog.show()
         }
     }
 

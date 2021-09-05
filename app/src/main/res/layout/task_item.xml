@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/TaskCardView"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeightLarge"
-    android:orientation="horizontal"
-    android:paddingStart="@dimen/task_item_padding"
-    android:paddingEnd="@dimen/task_item_padding">
-    <CheckBox
-        android:id="@+id/complete_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical" />
+    android:layout_height="?android:attr/listPreferredItemHeightLarge">
 
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/text_layout_margin"
-        android:layout_marginEnd="@dimen/text_layout_margin"
-        android:orientation="vertical"
-        >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:id="@+id/complete_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginTop="@dimen/task_item_text_margin"
-            android:layout_marginStart="@dimen/task_item_text_margin"
+            android:layout_height="48dp"
+            android:layout_toStartOf="@id/label_important"
+            android:layout_toEndOf="@id/complete_checkbox"
+            android:gravity="bottom"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/term_date"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/task_item_text_margin"
-            android:layout_marginStart="@dimen/task_item_text_margin"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/title"
+            android:layout_toStartOf="@id/label_important"
+            android:layout_toEndOf="@id/complete_checkbox"
+            android:gravity="bottom"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/label_important"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="isImportantImage"
-        android:src="@drawable/task_important" />
-</LinearLayout>
+        <ImageView
+            android:id="@+id/label_important"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="isImportantImage"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:src="@drawable/task_important" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
