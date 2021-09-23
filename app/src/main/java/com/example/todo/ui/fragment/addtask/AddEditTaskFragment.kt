@@ -22,25 +22,19 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class AddEditTaskFragment : Fragment() {
+class AddEditTaskFragment : Fragment(R.layout.fragment_add_edit_task) {
     private var _binding: FragmentAddEditTaskBinding? = null
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var viewModel: TasksViewModel
+    lateinit var viewModel: AddEditTaskViewModel
 
     private val navArgs: AddEditTaskFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentAddEditTaskBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentAddEditTaskBinding.bind(view)
         val id = navArgs.taskId
         if (id > 0) {
             viewModel.getTask(id).observe(viewLifecycleOwner) { selectedTask ->
@@ -107,6 +101,7 @@ class AddEditTaskFragment : Fragment() {
                 dateString
             )
             fab.setOnClickListener { updateTask() }
+
         }
     }
 

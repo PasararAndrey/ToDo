@@ -11,36 +11,44 @@ import com.example.todo.databinding.TaskItemBinding
 import java.text.DateFormat
 
 class TasksAdapter(
-    private val viewModel: TasksViewModel,
-    private val onItemClicked: (Task) -> Unit
+    private val listener: OnItemClickListener,
 ) :
     ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffCallback()) {
 
-    class TaskViewHolder(private val binding: TaskItemBinding) :
+    inner class TaskViewHolder(private val binding: TaskItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(viewModel: TasksViewModel, task: Task) {
+
+        init {
+            binding.apply {
+                root.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val task = getItem(position)
+                        listener.onItemClick(task)
+                    }
+                }
+
+                completeCheckbox.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val task = getItem(position)
+                        listener.onCheckBoxClick(task)
+
+                    }
+                }
+
+            }
+        }
+
+
+        fun bind(task: Task) {
             binding.apply {
                 title.text = task.title
                 if (task.termDate != null) {
                     termDate.text = DateFormat.getDateInstance().format(task.termDate).toString()
                 }
-                completeCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) {
-                        viewModel.deleteTask(task)
-                    }
-                }
                 labelImportant.isVisible = task.important
-
-            }
-        }
-
-        companion object {
-            fun from(parent: ViewGroup): TaskViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = TaskItemBinding.inflate(
-                    layoutInflater, parent, false
-                )
-                return TaskViewHolder(binding)
+                completeCheckbox.isChecked = false
             }
         }
     }
@@ -55,15 +63,19 @@ class TasksAdapter(
         }
     }
 
+    interface OnItemClickListener {
+        fun onItemClick(task: Task)
+        fun onCheckBoxClick(task: Task)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        return TaskViewHolder.from(parent)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = TaskItemBinding.inflate(layoutInflater, parent, false)
+        return TaskViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val currentTask: Task = getItem(position)
-        holder.itemView.setOnClickListener {
-            onItemClicked(currentTask)
-        }
-        holder.bind(viewModel, currentTask)
+        holder.bind(currentTask)
     }
 }

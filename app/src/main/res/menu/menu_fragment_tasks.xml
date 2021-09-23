@@ -8,7 +8,7 @@
         android:title="@string/action_search"
 
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/action_sort"
         android:title="@string/action_sort"
