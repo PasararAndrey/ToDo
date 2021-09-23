@@ -59,6 +59,8 @@ dependencies {
     val navigation = "2.3.5"
     val hiltVersion = "2.38.1"
     val cardViewVersion = "1.0.0"
+    val datastoreVersion = "1.0.0-alpha02"
+
     implementation("androidx.appcompat:appcompat:$appCompatVersion")
     implementation("androidx.activity:activity-ktx:$activityVersion")
 
@@ -82,6 +84,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
     implementation("com.google.android.material:material:$materialVersion")
     implementation("androidx.cardview:cardview:$cardViewVersion")
+
     //Navigation
     implementation("androidx.navigation:navigation-runtime-ktx:$navigation")
     implementation("androidx.navigation:navigation-fragment-ktx:$navigation")
@@ -90,6 +93,10 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+
+    //DataStore
+    implementation("androidx.datastore:datastore-preferences:$datastoreVersion")
+
 
 
     // Testing

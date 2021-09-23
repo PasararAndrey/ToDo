@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todo.data.AppRepository
+import com.example.todo.data.PreferencesManager
+import com.example.todo.data.SortOrder
 import com.example.todo.data.task.Task
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -14,29 +16,37 @@ import java.util.*
 import javax.inject.Inject
 
 
-enum class SortOrder {
-    BY_NAME, BY_CREATION_DATE, BY_DEADLINE_DATE
-}
-
 class TasksViewModel
 @Inject
 constructor(
     private val repository: AppRepository,
+    private val preferencesManager: PreferencesManager
 ) : ViewModel() {
     val searchQuery: MutableStateFlow<String> = MutableStateFlow("")
-    val sortOrder = MutableStateFlow(SortOrder.BY_CREATION_DATE)
+    val preferencesFlow = preferencesManager.preferencesFlow
 
-    val anchorImportant = MutableStateFlow(false)
     private var _tasks = combine(
+        searchQuery,
+        preferencesFlow
+    ) { searchQuery, filterPreferences ->
+        Pair(searchQuery, filterPreferences)
+    }.flatMapLatest { (searchQuery, filterPreferences) ->
+        repository.allTasks(
             searchQuery,
-            sortOrder,
-            anchorImportant
-        ){ searchQuery,sortOrder, anchorImportant ->
-            Triple(searchQuery,sortOrder,anchorImportant)
-        }.flatMapLatest { (searchQuery,sortOrder, anchorImportant)->
-                repository.allTasks(searchQuery, sortOrder, anchorImportant)
+            filterPreferences.sortOrder,
+            filterPreferences.anchorImportant
+        )
     }.asLiveData()
+
     val tasks get() = _tasks
+
+    fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {
+        preferencesManager.updateSortOrder(sortOrder)
+    }
+
+    fun onAnchorImportantClick(isImportant: Boolean) {
+        viewModelScope.launch { preferencesManager.updateAnchorImportant(isImportant) }
+    }
 
     fun insertTask(
         title: String,

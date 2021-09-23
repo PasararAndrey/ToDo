@@ -10,9 +10,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.todo.R
 import com.example.todo.data.task.Task
 import com.example.todo.databinding.FragmentAddEditTaskBinding
 import com.example.todo.ui.fragment.tasks.TasksViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
 import java.util.*
@@ -87,6 +89,8 @@ class AddEditTaskFragment : Fragment() {
             )
             val action = AddEditTaskFragmentDirections.actionAddEditTaskFragmentToNavAllTasks()
             findNavController().navigate(action)
+        } else {
+            showSnackbarOnInvalidEntry()
         }
     }
 
@@ -119,7 +123,15 @@ class AddEditTaskFragment : Fragment() {
             )
             val action = AddEditTaskFragmentDirections.actionAddEditTaskFragmentToNavAllTasks()
             findNavController().navigate(action)
+        } else {
+            showSnackbarOnInvalidEntry()
         }
+    }
+
+    private fun showSnackbarOnInvalidEntry() {
+        val snackbar: Snackbar =
+            Snackbar.make(binding.root, R.string.invalid_entry_message, Snackbar.LENGTH_SHORT)
+        snackbar.show()
     }
 
     private fun checkCorrectDate(): Date? {
