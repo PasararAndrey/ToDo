@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/tasksFragment"
-            android:title="@string/nav_all_tasks_label"
+            android:title="@string/tasks_fragment_label"
             />
     </group>
 </menu>

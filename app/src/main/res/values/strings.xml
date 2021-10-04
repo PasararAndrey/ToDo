@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ToDo</string>
-    <string name="nav_all_tasks_label">Tasks</string>
+    <string name="tasks_fragment_label">Tasks</string>
     <string name="fab">fab</string>
     <string name="add_title_hint">Task</string>
     <string name="add_goal_hint">Add description to the task</string>
@@ -8,5 +8,12 @@
     <string name="action_search">Search</string>
     <string name="add_task_pick_date_hint">Pick the date</string>
     <string name="action_sort">Sort</string>
-    <string name="invalid_entry_message">Not all requiered fields are filled</string>
+    <string name="invalid_entry_message">Not all required fields are filled</string>
+    <string name="sort_menu_item_by_name">By name</string>
+    <string name="sort_menu_item_by_creation">By creation</string>
+    <string name="sort_menu_item_by_deadline">By deadline</string>
+    <string name="menu_item_anchor_important">Anchor important</string>
+    <string name="is_important_task">icon marks if the task is important</string>
+    <string name="add_edit_task_fragment_label" />
+
 </resources>

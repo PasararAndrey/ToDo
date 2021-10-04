@@ -6,11 +6,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
-
     fun getTasks(
         searchQuery: String,
         sortOrder: SortOrder,
-        anchorImportant: Boolean
+        anchorImportant: Boolean,
     ): Flow<List<Task>> =
         when (sortOrder) {
             SortOrder.BY_NAME -> getTasksSortedByName(searchQuery, anchorImportant)
@@ -27,7 +26,7 @@ interface TaskDao {
     @Query("SELECT * FROM task_table WHERE title LIKE '%' || :searchQuery || '%' ORDER BY CASE WHEN :anchorImportant = 1 THEN important END DESC,term_date")
     fun getTasksSortedByDateDeadline(
         searchQuery: String,
-        anchorImportant: Boolean
+        anchorImportant: Boolean,
     ): Flow<List<Task>>
 
 

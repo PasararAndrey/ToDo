@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/action_search"
         android:title="@string/action_search"
-
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView"/>
+        app:showAsAction="collapseActionView|always"
+        tools:ignore="AlwaysShowAction" />
     <item
         android:id="@+id/action_sort"
         android:title="@string/action_sort"
@@ -16,15 +17,15 @@
         <menu>
             <item
                 android:id="@+id/sort_by_name"
-                android:title="By name"
+                android:title="@string/sort_menu_item_by_name"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/sort_by_creation"
-                android:title="By creation"
+                android:title="@string/sort_menu_item_by_creation"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/sort_by_deadline"
-                android:title="By deadline"
+                android:title="@string/sort_menu_item_by_deadline"
                 app:showAsAction="never" />
         </menu>
 
@@ -32,6 +33,6 @@
     <item
         android:id="@+id/action_important"
         android:checkable="true"
-        android:title="Anchor important"
+        android:title="@string/menu_item_anchor_important"
         app:showAsAction="never" />
 </menu>

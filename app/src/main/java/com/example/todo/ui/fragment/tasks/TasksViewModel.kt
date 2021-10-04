@@ -50,7 +50,7 @@ constructor(
         viewModelScope.launch { preferencesManager.updateAnchorImportant(isImportant) }
     }
 
-    fun onTaskSwiped(task: Task) = viewModelScope.launch {
+    fun deleteTask(task: Task) = viewModelScope.launch {
         repository.deleteTask(task)
         _taskEvent.emit(TasksEvent.ShowUndoDeleteTaskMessage(task))
     }

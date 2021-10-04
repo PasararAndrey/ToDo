@@ -34,7 +34,8 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
     private val viewModel: TasksViewModel by viewModels()
 
-    private lateinit var searchView: SearchView
+    private var _searchView: SearchView? = null
+    private val searchView get() = _searchView!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,7 +51,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
                 }
 
                 override fun onCheckBoxClick(task: Task) {
-                    viewModel.onTaskSwiped(task)
+                    viewModel.deleteTask(task)
                 }
 
             }
@@ -82,7 +83,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val task = tasksAdapter.currentList[viewHolder.adapterPosition]
-                    viewModel.onTaskSwiped(task)
+                    viewModel.deleteTask(task)
                 }
 
             }).attachToRecyclerView(allTasksRv)
@@ -109,6 +110,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        _searchView = null
     }
 
     override fun onDestroyView() {
@@ -121,7 +123,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
         inflater.inflate(R.menu.menu_fragment_tasks, menu)
         val searchItem: MenuItem = menu.findItem(R.id.action_search)
 
-        searchView = searchItem.actionView as SearchView
+        _searchView = searchItem.actionView as SearchView
 
         val currentQuery = viewModel.searchQuery.value
         if (currentQuery != null && currentQuery.isNotEmpty()) {
@@ -175,4 +177,6 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 }

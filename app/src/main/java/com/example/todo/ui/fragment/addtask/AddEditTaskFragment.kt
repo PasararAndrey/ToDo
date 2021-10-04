@@ -3,9 +3,7 @@ package com.example.todo.ui.fragment.addtask
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -13,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.todo.R
 import com.example.todo.data.task.Task
 import com.example.todo.databinding.FragmentAddEditTaskBinding
-import com.example.todo.ui.fragment.tasks.TasksViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
@@ -37,8 +34,10 @@ class AddEditTaskFragment : Fragment(R.layout.fragment_add_edit_task) {
         _binding = FragmentAddEditTaskBinding.bind(view)
         val id = navArgs.taskId
         if (id > 0) {
+
             viewModel.getTask(id).observe(viewLifecycleOwner) { selectedTask ->
                 bind(selectedTask)
+
             }
         } else {
             binding.fab.setOnClickListener {
